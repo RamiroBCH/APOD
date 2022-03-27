@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -13,13 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.rama.apod.R
 import com.rama.apod.RoomData
 import com.rama.apod.data.Datasource
 import com.rama.apod.data.model.Photo
-import com.rama.apod.databinding.FragmentHomeBinding
 import com.rama.apod.databinding.FragmentMarsPhotosBinding
 import com.rama.apod.domain.RepoImpl
 import com.rama.apod.vo.Resource
@@ -27,7 +22,6 @@ import com.rama.apod.vo.Resource
 class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
     private val viewModel by activityViewModels<ApodViewModel> {
         VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
-        //AppDatabase.getDatabase(requireActivity().applicationContext)
     }
     private var _binding: FragmentMarsPhotosBinding? = null
     private val binding get() = _binding!!
@@ -46,10 +40,10 @@ class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.setSol(100)
         setupSearch()
         setupRecyclerView()
         setupObservers()
-
     }
     private fun setupObservers(){
         viewModel.showPhotosList.observe(viewLifecycleOwner, Observer { result ->
@@ -72,7 +66,7 @@ class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
     private fun setupSearch(){
         binding.search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                viewModel.setsol(p0!!)
+                viewModel.setSol(p0!!.toInt())
                 return false
             }
 

@@ -15,6 +15,9 @@ import com.rama.apod.domain.RepoImpl
 
 
 class HomeFragment : Fragment() {
+    private val viewModel by activityViewModels<ApodViewModel> {
+        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

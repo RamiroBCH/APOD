@@ -6,7 +6,7 @@ import com.rama.apod.data.model.Photo
 import com.rama.apod.vo.Resource
 import com.rama.apod.vo.RetrofitClient
 
-class Datasource(val appDatabase: RoomData){
+class Datasource(val roomData: RoomData){
     val marskey = "y0c2KCbxZDzyUn7wPOW9lZfMdtFLLIr0giMKdxN3"
 
     suspend fun getApod():Resource<ItemApod>{
@@ -15,17 +15,17 @@ class Datasource(val appDatabase: RoomData){
 
 
 
-    suspend fun getMarsPhotoBySol(sol:String):Resource<List<Photo>>{
+    suspend fun getMarsPhotoBySol(sol: Int):Resource<List<Photo>>{
         return Resource.Success(RetrofitClient.webservice.getMarsPhotos(sol,api_key = marskey).photos)
     }
 
 
 
     suspend fun insertFav(photoFav: FavItems){
-        appDatabase.itemsDao().addFavoritePhoto(photoFav)
+        roomData.itemsDao().addFavoritePhoto(photoFav)
     }
     suspend fun getItemsFav(): Resource<List<FavItems>> {
-        return Resource.Success(appDatabase.itemsDao().getAllFavorites())
+        return Resource.Success(roomData.itemsDao().getAllFavorites())
     }
 
 

@@ -30,19 +30,19 @@ class ApodViewModel(private val repo: Repo) : ViewModel() {
     }
 
     //Search Photos
-    init {
-        setsol("100")
-    }
+    /*init {
+        setSol(100)
+    }*/
 
-    private val sol = MutableLiveData<String>()
-    fun setsol(solgive: String) {
+    private val sol = MutableLiveData<Int>()
+    fun setSol(solgive: Int) {
         sol.value = solgive
     }
-    val showPhotosList = sol.distinctUntilChanged().switchMap {
+    val showPhotosList = sol.distinctUntilChanged().switchMap {sol ->
         liveData(Dispatchers.IO) {
             emit(Resource.Loading)
             try {
-                emit(repo.getItemMarsPhotos(it))
+                emit(repo.getItemMarsPhotos(sol))
             } catch (e: Exception) {
                 emit(Resource.Failure(e))
             }
@@ -75,8 +75,9 @@ class ApodViewModel(private val repo: Repo) : ViewModel() {
 }
 
 
-class VMFactory(private val repo: Repo) : ViewModelProvider.Factory {
+class VMFactory(private val repo: Repo): ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(Repo::class.java).newInstance(repo)
     }
+
 }

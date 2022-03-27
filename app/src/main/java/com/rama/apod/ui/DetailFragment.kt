@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.room.Ignore
 import com.bumptech.glide.Glide
 import com.rama.apod.R
 import com.rama.apod.RoomData
@@ -44,46 +45,45 @@ class DetailFragment : Fragment() {
             "apod" -> setDetailsApod()
             "fav" -> setDetailsFav()
         }
+        binding.btnFav.setOnClickListener {
+            when (detConf) {
+                "mars" -> viewModel.saveFavorite(
+                    FavItems(
+                        viewModel.photoMars.id.toString(),
+                        viewModel.photoMars.earth_date,
+                        viewModel.photoMars.img_src,
+                        viewModel.photoMars.sol.toString()
+                    )
+                )
+                "apod" -> viewModel.saveFavorite(
+                    FavItems(
+                        viewModel.apod.title,
+                        viewModel.apod.date,
+                        viewModel.apod.hdurl,
+                        viewModel.apod.explanation
+                    )
+                )
+            }
+
+            Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun setDetailsApod() {
-        var apodDetail = viewModel.apod
-        Glide.with(requireContext()).load(apodDetail.hdurl).centerCrop().into(binding.imgDetail)
-        binding.txtTitulo.text = apodDetail.title
-        binding.txtDate.text = apodDetail.date
-        binding.txtDetail.text = apodDetail.explanation
+        Glide.with(requireContext()).load(viewModel.apod.hdurl).centerCrop().into(binding.imgDetail)
+        binding.txtTitulo.text = viewModel.apod.title
+        binding.txtDate.text = viewModel.apod.date
+        binding.txtDetail.text = viewModel.apod.explanation
         binding.btnFav.visibility = View.VISIBLE
-        binding.btnFav.setOnClickListener {
-            viewModel.saveFavorite(
-                FavItems(
-                    apodDetail.title.toInt(),
-                    apodDetail.date,
-                    apodDetail.hdurl,
-                    apodDetail.explanation
-                )
-            )
-            Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_SHORT).show()
-        }
     }
 
     fun setDetailsMars() {
-        var detail = viewModel.photoMars
-        Glide.with(requireContext()).load(detail.img_src).centerCrop().into(binding.imgDetail)
-        binding.txtTitulo.text = detail.id.toString()
-        binding.txtDate.text = detail.earth_date
-        binding.txtDetail.text = detail.sol.toString()
+        Glide.with(requireContext()).load(viewModel.photoMars.img_src).centerCrop().into(binding.imgDetail)
+        binding.txtTitulo.text = viewModel.photoMars.id.toString()
+        binding.txtDate.text = viewModel.photoMars.earth_date
+        binding.txtDetail.text = viewModel.photoMars.sol.toString()
         binding.btnFav.visibility = View.VISIBLE
-        binding.btnFav.setOnClickListener {
-            viewModel.saveFavorite(
-                FavItems(
-                    detail.id.toString().toInt(),
-                    detail.earth_date,
-                    detail.img_src,
-                    detail.sol.toString()
-                )
-            )
-            Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     fun setDetailsFav() {

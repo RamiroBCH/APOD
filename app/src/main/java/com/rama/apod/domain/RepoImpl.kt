@@ -11,7 +11,7 @@ class RepoImpl(private val datasource: Datasource):Repo {
     override suspend fun getItemApod(): Resource<ItemApod> {
         return datasource.getApod()
     }
-    override suspend fun getItemMarsPhotos(sol:String): Resource<List<Photo>> {
+    override suspend fun getItemMarsPhotos(sol: Int): Resource<List<Photo>> {
         return datasource.getMarsPhotoBySol(sol)
     }
 

@@ -68,7 +68,6 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.OnFavPhotoClickListener{
     private fun setupRV(){
         binding.rvFavPhotos.layoutManager = GridLayoutManager(requireContext(),1,
             GridLayoutManager.VERTICAL,false)
-        //binding.rvMarsPhotos.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavPhotos.addItemDecoration(
             DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL)

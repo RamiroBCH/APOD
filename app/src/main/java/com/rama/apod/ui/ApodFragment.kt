@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rama.apod.RoomData
 import com.rama.apod.data.Datasource
+import com.rama.apod.data.model.ItemApod
 import com.rama.apod.databinding.FragmentApodBinding
 import com.rama.apod.domain.RepoImpl
 import com.rama.apod.vo.Resource
@@ -22,6 +23,8 @@ class ApodFragment : Fragment() {
     }
     private var _binding: FragmentApodBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var apodTD: ItemApod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,25 +42,26 @@ class ApodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getApodToView()
         binding.apodImg.setOnClickListener {
+            viewModel.setAppod(apodTD)
             val action = ApodFragmentDirections.actionAstronomyPictureOfDayFragmentToDetailFragment()
             findNavController().navigate(action)
         }
     }
 
     private fun getApodToView() {
-        viewModel.getApod.observe(viewLifecycleOwner, Observer {result ->
-            when(result){
+        viewModel.getApod.observe(viewLifecycleOwner, Observer{ apod ->
+            when(apod){
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    apodTD = apod.data
                     binding.progressBar.visibility = View.GONE
-                    Glide.with(requireContext()).load(result.data.hdurl).centerCrop().into(binding.apodImg)
-                    viewModel.setAppod(result.data)
+                    Glide.with(requireContext()).load(apod.data.hdurl).centerCrop().into(binding.apodImg)
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Error ${result.exception}", Toast.LENGTH_SHORT ).show()
+                    Toast.makeText(requireContext(), "Error ${apod.exception}", Toast.LENGTH_SHORT ).show()
                 }
             }
         })

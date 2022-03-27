@@ -7,7 +7,7 @@ import com.rama.apod.vo.Resource
 
 interface Repo {
     suspend fun getItemApod():Resource<ItemApod>
-    suspend fun getItemMarsPhotos(sol:String):Resource<List<Photo>>
+    suspend fun getItemMarsPhotos(sol: Int):Resource<List<Photo>>
 
 
     suspend fun insertFavorite(photoFav: FavItems)
