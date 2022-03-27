@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.HomeFragment"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/img_home"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:src="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/btn_apod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Astronomic Photo Of the Day"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/teal_200"/>
+    <Button
+        android:id="@+id/btn_mars_photos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mars Photos"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/teal_200"/>
+    <Button
+        android:id="@+id/btn_fav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorite Photos"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/teal_200"/>
+
+
+</LinearLayout>
