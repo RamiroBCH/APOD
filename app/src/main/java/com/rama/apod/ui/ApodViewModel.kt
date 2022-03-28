@@ -70,9 +70,9 @@ class ApodViewModel(private val repo: Repo) : ViewModel() {
         }
     }
     //Delete Item From Favorites
-    fun deleteFavorite(photoFav: FavItems){
+    fun deleteFavorite(favItems: FavItems){
         viewModelScope.launch {
-            repo.deleteFromFavorites(photoFav)
+            repo.deleteFromFavorites(favItems)
         }
     }
 }

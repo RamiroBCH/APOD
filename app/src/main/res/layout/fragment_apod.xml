@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@color/black"
     android:orientation="vertical"
     tools:context=".ui.ApodFragment">
@@ -15,8 +14,8 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
@@ -26,10 +25,10 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/apod_img"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
     </ScrollView>
 
 

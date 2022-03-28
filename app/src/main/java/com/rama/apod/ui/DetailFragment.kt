@@ -41,14 +41,8 @@ class DetailFragment : Fragment() {
             "apod" -> setDetailsApod()
             "fav" -> setDetailsFav()
         }
-        setClickFav(detConf)
-
-
-    }
-
-    private fun setClickFav(def: String) {
         binding.btnFav.setOnClickListener {
-            when (def) {
+            when (detConf) {
                 "mars" -> viewModel.saveFavorite(
                     FavItems(
                         viewModel.photoMars.id.toString(),
@@ -69,9 +63,15 @@ class DetailFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_SHORT).show()
         }
+        binding.delete.setOnClickListener {
+            when(detConf){
+                "fav" -> deleteFav(viewModel.fav)
+            }
+
+        }
     }
 
-    fun setDetailsApod() {
+    private fun setDetailsApod() {
         Glide.with(requireContext()).load(viewModel.apod.hdurl).into(binding.imgDetail)
         binding.txtTitulo.text = viewModel.apod.title
         binding.txtDate.text = viewModel.apod.date
@@ -80,7 +80,7 @@ class DetailFragment : Fragment() {
         binding.delete.visibility = View.GONE
     }
 
-    fun setDetailsMars() {
+    private fun setDetailsMars() {
         Glide.with(requireContext()).load(viewModel.photoMars.img_src).into(binding.imgDetail)
         binding.txtTitulo.text = viewModel.photoMars.id.toString()
         binding.txtDate.text = viewModel.photoMars.earth_date
@@ -89,19 +89,17 @@ class DetailFragment : Fragment() {
         binding.delete.visibility = View.GONE
     }
 
-    fun setDetailsFav() {
-        var favDetail = viewModel.fav
+    private fun setDetailsFav() {
+        val favDetail = viewModel.fav
         Glide.with(requireContext()).load(favDetail.url).into(binding.imgDetail)
         binding.txtTitulo.text = favDetail.id
         binding.txtDate.text = favDetail.date
         binding.txtDetail.text = favDetail.details
         binding.btnFav.visibility = View.GONE
         binding.delete.visibility = View.VISIBLE
-        setClickDelete(favDetail)
     }
-    private fun setClickDelete(favItems: FavItems) {
-        binding.delete.setOnClickListener {
-            viewModel.deleteFavorite(favItems)
-        }
+
+    private fun deleteFav(favItems: FavItems){
+        viewModel.deleteFavorite(favItems)
     }
 }
