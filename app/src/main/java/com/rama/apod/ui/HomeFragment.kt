@@ -9,14 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.rama.apod.R
 import com.rama.apod.RoomData
-import com.rama.apod.data.Datasource
+import com.rama.apod.data.DatasourceImpl
 import com.rama.apod.databinding.FragmentHomeBinding
 import com.rama.apod.domain.RepoImpl
 
 
 class HomeFragment : Fragment() {
     private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
     }
 
     private var _binding: FragmentHomeBinding? = null

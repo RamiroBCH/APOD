@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rama.apod.RoomData
-import com.rama.apod.data.Datasource
+import com.rama.apod.data.DatasourceImpl
 import com.rama.apod.data.model.Photo
 import com.rama.apod.databinding.FragmentMarsPhotosBinding
 import com.rama.apod.domain.RepoImpl
@@ -21,7 +21,7 @@ import com.rama.apod.vo.Resource
 
 class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
     private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
     }
     private var _binding: FragmentMarsPhotosBinding? = null
     private val binding get() = _binding!!

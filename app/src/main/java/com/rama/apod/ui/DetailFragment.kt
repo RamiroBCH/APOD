@@ -1,6 +1,5 @@
 package com.rama.apod.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,19 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.room.Ignore
 import com.bumptech.glide.Glide
-import com.rama.apod.R
 import com.rama.apod.RoomData
-import com.rama.apod.data.Datasource
+import com.rama.apod.data.DatasourceImpl
 import com.rama.apod.data.FavItems
 import com.rama.apod.databinding.FragmentDetailBinding
-import com.rama.apod.databinding.FragmentMarsPhotosBinding
 import com.rama.apod.domain.RepoImpl
 
 class DetailFragment : Fragment() {
     private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
     }
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -45,8 +41,14 @@ class DetailFragment : Fragment() {
             "apod" -> setDetailsApod()
             "fav" -> setDetailsFav()
         }
+        setClickFav(detConf)
+
+
+    }
+
+    private fun setClickFav(def: String) {
         binding.btnFav.setOnClickListener {
-            when (detConf) {
+            when (def) {
                 "mars" -> viewModel.saveFavorite(
                     FavItems(
                         viewModel.photoMars.id.toString(),
@@ -70,29 +72,36 @@ class DetailFragment : Fragment() {
     }
 
     fun setDetailsApod() {
-        Glide.with(requireContext()).load(viewModel.apod.hdurl).centerCrop().into(binding.imgDetail)
+        Glide.with(requireContext()).load(viewModel.apod.hdurl).into(binding.imgDetail)
         binding.txtTitulo.text = viewModel.apod.title
         binding.txtDate.text = viewModel.apod.date
         binding.txtDetail.text = viewModel.apod.explanation
         binding.btnFav.visibility = View.VISIBLE
+        binding.delete.visibility = View.GONE
     }
 
     fun setDetailsMars() {
-        Glide.with(requireContext()).load(viewModel.photoMars.img_src).centerCrop().into(binding.imgDetail)
+        Glide.with(requireContext()).load(viewModel.photoMars.img_src).into(binding.imgDetail)
         binding.txtTitulo.text = viewModel.photoMars.id.toString()
         binding.txtDate.text = viewModel.photoMars.earth_date
         binding.txtDetail.text = viewModel.photoMars.sol.toString()
         binding.btnFav.visibility = View.VISIBLE
-
+        binding.delete.visibility = View.GONE
     }
 
     fun setDetailsFav() {
         var favDetail = viewModel.fav
-        Glide.with(requireContext()).load(favDetail.url).centerCrop().into(binding.imgDetail)
-        binding.txtTitulo.text = favDetail.id.toString()
+        Glide.with(requireContext()).load(favDetail.url).into(binding.imgDetail)
+        binding.txtTitulo.text = favDetail.id
         binding.txtDate.text = favDetail.date
         binding.txtDetail.text = favDetail.details
         binding.btnFav.visibility = View.GONE
+        binding.delete.visibility = View.VISIBLE
+        setClickDelete(favDetail)
     }
-
+    private fun setClickDelete(favItems: FavItems) {
+        binding.delete.setOnClickListener {
+            viewModel.deleteFavorite(favItems)
+        }
+    }
 }

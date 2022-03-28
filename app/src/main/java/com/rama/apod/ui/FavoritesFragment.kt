@@ -11,19 +11,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import com.rama.apod.R
 import com.rama.apod.RoomData
-import com.rama.apod.data.Datasource
+import com.rama.apod.data.DatasourceImpl
 import com.rama.apod.data.FavItems
-import com.rama.apod.databinding.FragmentDetailBinding
 import com.rama.apod.databinding.FragmentFavoritesBinding
-import com.rama.apod.databinding.FragmentMarsPhotosBinding
 import com.rama.apod.domain.RepoImpl
 import com.rama.apod.vo.Resource
 
 class FavoritesFragment : Fragment(), FavoritesAdapter.OnFavPhotoClickListener{
     private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
         //AppDatabase.getDatabase(requireActivity().applicationContext)
     }
     private var _binding: FragmentFavoritesBinding? = null

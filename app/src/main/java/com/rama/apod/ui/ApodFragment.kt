@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rama.apod.RoomData
-import com.rama.apod.data.Datasource
+import com.rama.apod.data.DatasourceImpl
 import com.rama.apod.data.model.ItemApod
 import com.rama.apod.databinding.FragmentApodBinding
 import com.rama.apod.domain.RepoImpl
@@ -19,7 +19,7 @@ import com.rama.apod.vo.Resource
 
 class ApodFragment : Fragment() {
     private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(Datasource(RoomData.getDatabase(requireActivity().applicationContext))))
+        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
     }
     private var _binding: FragmentApodBinding? = null
     private val binding get() = _binding!!

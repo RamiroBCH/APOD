@@ -12,4 +12,5 @@ interface Repo {
 
     suspend fun insertFavorite(photoFav: FavItems)
     suspend fun getItemsFavorite():Resource<List<FavItems>>
+    suspend fun deleteFromFavorites(favItems: FavItems)
 }

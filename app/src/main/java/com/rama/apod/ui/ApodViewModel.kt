@@ -29,10 +29,7 @@ class ApodViewModel(private val repo: Repo) : ViewModel() {
         fav = favphoto
     }
 
-    //Search Photos
-    /*init {
-        setSol(100)
-    }*/
+
 
     private val sol = MutableLiveData<Int>()
     fun setSol(solgive: Int) {
@@ -70,6 +67,12 @@ class ApodViewModel(private val repo: Repo) : ViewModel() {
     fun saveFavorite(photoFav: FavItems){
         viewModelScope.launch {
             repo.insertFavorite(photoFav)
+        }
+    }
+    //Delete Item From Favorites
+    fun deleteFavorite(photoFav: FavItems){
+        viewModelScope.launch {
+            repo.deleteFromFavorites(photoFav)
         }
     }
 }
