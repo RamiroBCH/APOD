@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.HomeFragment"
-    android:background="@color/black">
+    android:background="@color/backround_friendly">
 
     <ImageView
         android:id="@+id/img_home"
@@ -21,7 +21,7 @@
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/black"
+        android:background="@color/backround_friendly"
         android:textColor="@color/teal_200"/>
     <Button
         android:id="@+id/btn_mars_photos"
@@ -30,7 +30,7 @@
         android:text="Mars Photos"
         android:textStyle="bold"
         android:textSize="25sp"
-        android:backgroundTint="@color/black"
+        android:background="@color/backround_friendly"
         android:layout_marginTop="12dp"
         android:textColor="@color/teal_200"/>
     <Button
@@ -41,8 +41,31 @@
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/black"
+        android:background="@color/backround_friendly"
         android:textColor="@color/teal_200"/>
+
+    <RelativeLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/SRL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 </LinearLayout>

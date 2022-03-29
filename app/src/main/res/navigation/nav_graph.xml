@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.rama.apod.ui.HomeFragment"
-        android:label="APOD"
+        android:name="com.rama.PhylloticLink.ui.HomeFragment"
+        android:label="@string/apod"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_astronomyPictureOfDayFragment"
@@ -34,8 +34,8 @@
     </fragment>
     <fragment
         android:id="@+id/astronomyPictureOfDayFragment"
-        android:name="com.rama.apod.ui.ApodFragment"
-        android:label="Picture of the day"
+        android:name="com.rama.PhylloticLink.ui.ApodFragment"
+        android:label="@string/pictureoftheday"
         tools:layout="@layout/fragment_apod">
         <action
             android:id="@+id/action_astronomyPictureOfDayFragment_to_detailFragment"
@@ -47,8 +47,8 @@
     </fragment>
     <fragment
         android:id="@+id/MarsPhotosFragment"
-        android:name="com.rama.apod.ui.MarsPhotosFragment"
-        android:label="Mars Photos"
+        android:name="com.rama.PhylloticLink.ui.MarsPhotosFragment"
+        android:label="@string/marsphotos"
         tools:layout="@layout/fragment_mars_photos">
         <action
             android:id="@+id/action_MarsPhotosFragment_to_detailFragment"
@@ -60,8 +60,8 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.rama.apod.ui.FavoritesFragment"
-        android:label="Favorites"
+        android:name="com.rama.PhylloticLink.ui.FavoritesFragment"
+        android:label="@string/fav"
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_detailFragment"
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.rama.apod.ui.DetailFragment"
-        android:label="Details"
+        android:name="com.rama.PhylloticLink.ui.DetailFragment"
+        android:label="@string/details"
         tools:layout="@layout/fragment_detail" />
 </navigation>
