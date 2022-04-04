@@ -11,18 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import com.rama.PhylloticLink.RoomData
-import com.rama.PhylloticLink.data.DatasourceImpl
-import com.rama.PhylloticLink.data.FavItems
+import com.rama.PhylloticLink.data.NormalizedItem
 import com.rama.PhylloticLink.databinding.FragmentFavoritesBinding
-import com.rama.PhylloticLink.domain.RepoImpl
 import com.rama.PhylloticLink.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoritesFragment : Fragment(), FavoritesAdapter.OnFavPhotoClickListener{
-    private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
-        //AppDatabase.getDatabase(requireActivity().applicationContext)
-    }
+    private val viewModel by activityViewModels<ApodViewModel>()
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
@@ -72,7 +68,7 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.OnFavPhotoClickListener{
 
     }
 
-    override fun onFavPhotoClick(favphoto: FavItems) {
+    override fun onFavPhotoClick(favphoto: NormalizedItem) {
         viewModel.setFavItem(favphoto)
         val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment()
         findNavController().navigate(action)

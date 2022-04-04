@@ -1,33 +1,46 @@
 package com.rama.PhylloticLink.data
 
-import com.rama.PhylloticLink.RoomData
 import com.rama.PhylloticLink.data.model.ItemApod
 import com.rama.PhylloticLink.data.model.Photo
+import com.rama.PhylloticLink.domain.ApodWebService
 import com.rama.PhylloticLink.domain.Datasource
+import com.rama.PhylloticLink.domain.MarsWebService
 import com.rama.PhylloticLink.vo.Resource
-import com.rama.PhylloticLink.vo.RetrofitClient
+import javax.inject.Inject
 
-class DatasourceImpl(val roomData: RoomData): Datasource {
+class DatasourceImpl @Inject constructor(
+    val itemsDao: ItemsDao,
+    val apod: ApodWebService,
+    val mars: MarsWebService): Datasource {
+
     val marskey = "y0c2KCbxZDzyUn7wPOW9lZfMdtFLLIr0giMKdxN3"
-
+    //Metodos que usan Retrofit
     override suspend fun getApod():Resource<ItemApod>{
-        return Resource.Success(RetrofitClient.apodwebservice.getApod(api_key = marskey))
+        return Resource.Success(apod.getApod(api_key = marskey))
     }
-
-
     override suspend fun getMarsPhotoBySol(sol: Int):Resource<List<Photo>>{
-        return Resource.Success(RetrofitClient.webservice.getMarsPhotos(sol,api_key = marskey).photos)
+        return Resource.Success(mars.getMarsPhotos(sol,api_key = marskey).photos)
     }
-
-
-    override suspend fun insertFav(photoFav: FavItems){
-        roomData.itemsDao().addFavoritePhoto(photoFav)
+    //Metodos que usan Room
+    override suspend fun insertFav(photoFav: NormalizedItem){
+        itemsDao.addFavoritePhoto(photoFav)
     }
-    override suspend fun getItemsFav(): Resource<List<FavItems>> {
-        return Resource.Success(roomData.itemsDao().getAllFavorites())
+    override suspend fun getItemsFav(): Resource<List<NormalizedItem>> {
+        return Resource.Success(itemsDao.getAllFavorites())
     }
-    override suspend fun deteleFavorite(favItems: FavItems) {
-        roomData.itemsDao().deleteFromFavorites(favItems)
+    override suspend fun deteleFavorite(normalizedItem: NormalizedItem) {
+        itemsDao.deleteFromFavorites(normalizedItem)
+    }
+    //Metodos que usan Room para salvar datos obtenidos con Retrofit
+    override suspend fun insertApodToRoom(apodEntities: ApodEntities) {
+        itemsDao.insertApodToRoom(apodEntities)
+    }
+    override suspend fun insertMarsToRoom(marsEntities: MarsEntities) {
+        itemsDao.insertMarsToRoom(marsEntities)
+    }
+    //Metodos que usan Room para obtener datos
+    override suspend fun getApodFromRoom(): Resource<ApodEntities>{
+        return Resource.Success(itemsDao.getAllApod())
     }
 }
 

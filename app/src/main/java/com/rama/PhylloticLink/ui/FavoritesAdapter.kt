@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rama.PhylloticLink.base.BaseViewHolder
-import com.rama.PhylloticLink.data.FavItems
+import com.rama.PhylloticLink.data.NormalizedItem
 import com.rama.PhylloticLink.databinding.FavoriteRowBinding
 
 class FavoritesAdapter(
     private val context: Context,
-    private val photoFav: List<FavItems>,
+    private val photoFav: List<NormalizedItem>,
     private val itemClickListenerFav: OnFavPhotoClickListener): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     interface OnFavPhotoClickListener {
-        fun onFavPhotoClick(favphoto:FavItems)
+        fun onFavPhotoClick(favphoto:NormalizedItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -34,8 +34,8 @@ class FavoritesAdapter(
         return photoFav.size
     }
 
-    inner class FavViewHolder(val binding: FavoriteRowBinding) : BaseViewHolder<FavItems>(binding.root) {
-        override fun bind(item: FavItems, position: Int) = with(binding) {
+    inner class FavViewHolder(val binding: FavoriteRowBinding) : BaseViewHolder<NormalizedItem>(binding.root) {
+        override fun bind(item: NormalizedItem, position: Int) = with(binding) {
             Glide.with(context).load(item.url).centerCrop().into(favPreview)
             date.text = item.date
             val id = item.id

@@ -12,13 +12,11 @@ import com.rama.PhylloticLink.RoomData
 import com.rama.PhylloticLink.data.DatasourceImpl
 import com.rama.PhylloticLink.databinding.FragmentHomeBinding
 import com.rama.PhylloticLink.domain.RepoImpl
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
-    }
-
+    private val viewModel by activityViewModels<ApodViewModel>()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 

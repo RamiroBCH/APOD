@@ -1,16 +1,21 @@
 package com.rama.PhylloticLink.domain
 
-import com.rama.PhylloticLink.data.FavItems
+import com.rama.PhylloticLink.data.ApodEntities
+import com.rama.PhylloticLink.data.MarsEntities
+import com.rama.PhylloticLink.data.NormalizedItem
 import com.rama.PhylloticLink.data.model.ItemApod
 import com.rama.PhylloticLink.data.model.Photo
 import com.rama.PhylloticLink.vo.Resource
 
 interface Repo {
     suspend fun getItemApod():Resource<ItemApod>
+    suspend fun insertApodToRoom(apodEntities: ApodEntities)
+    suspend fun getApodFromRoom():Resource<ApodEntities>
     suspend fun getItemMarsPhotos(sol: Int):Resource<List<Photo>>
+    suspend fun insertMarsToRoom(marsEntities: MarsEntities)
 
 
-    suspend fun insertFavorite(photoFav: FavItems)
-    suspend fun getItemsFavorite():Resource<List<FavItems>>
-    suspend fun deleteFromFavorites(favItems: FavItems)
+    suspend fun insertFavorite(photoFav: NormalizedItem)
+    suspend fun getItemsFavorite():Resource<List<NormalizedItem>>
+    suspend fun deleteFromFavorites(normalizedItem: NormalizedItem)
 }

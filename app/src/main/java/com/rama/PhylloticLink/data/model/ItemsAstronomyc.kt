@@ -1,5 +1,6 @@
 package com.rama.PhylloticLink.data.model
 
+
 data class ItemApod(
     val date: String = "",
     val explanation: String = "",
@@ -9,6 +10,7 @@ data class ItemApod(
     val title: String = "",
     val url: String = ""
 )
+
 data class ItemMarsPhotos(
     val photos: List<Photo>
 )

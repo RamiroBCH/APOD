@@ -11,21 +11,19 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rama.PhylloticLink.R
-import com.rama.PhylloticLink.RoomData
-import com.rama.PhylloticLink.data.DatasourceImpl
+import com.rama.PhylloticLink.data.ApodEntities
 import com.rama.PhylloticLink.data.model.ItemApod
 import com.rama.PhylloticLink.databinding.FragmentApodBinding
-import com.rama.PhylloticLink.domain.RepoImpl
 import com.rama.PhylloticLink.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ApodFragment : Fragment() {
-    private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
-    }
+    private val viewModel by activityViewModels<ApodViewModel>()
     private var _binding: FragmentApodBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var apodTD: ItemApod
+    lateinit var data: ItemApod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +41,7 @@ class ApodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getApodToView()
         binding.apodImg.setOnClickListener {
-            viewModel.setAppod(apodTD)
+            viewModel.setAppod(data)
             findNavController().navigate(R.id.action_astronomyPictureOfDayFragment_to_detailFragment)
         }
     }
@@ -55,12 +53,25 @@ class ApodFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    apodTD = apod.data
+                    data = apod.data
                     binding.progressBar.visibility = View.GONE
-                    Glide.with(requireContext()).load(apod.data.hdurl).into(binding.apodImg)
+                    Glide.with(requireContext()).load(data.hdurl).centerInside().into(binding.apodImg)
+                    viewModel.insertApodItems(
+                        ApodEntities(
+                            1,
+                            data.title,
+                            data.date,
+                            data.explanation,
+                            data.hdurl,
+                            data.media_type,
+                            data.service_version,
+                            data.hdurl
+                        )
+                    )
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
+                    viewModel.getApodFromRoom()
                     Toast.makeText(requireContext(), "Error ${apod.exception}", Toast.LENGTH_SHORT ).show()
                 }
             }

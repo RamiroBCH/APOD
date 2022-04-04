@@ -18,11 +18,11 @@ import com.rama.PhylloticLink.data.model.Photo
 import com.rama.PhylloticLink.databinding.FragmentMarsPhotosBinding
 import com.rama.PhylloticLink.domain.RepoImpl
 import com.rama.PhylloticLink.vo.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
-    private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
-    }
+    private val viewModel by activityViewModels<ApodViewModel>()
     private var _binding: FragmentMarsPhotosBinding? = null
     private val binding get() = _binding!!
 

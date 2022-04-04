@@ -8,17 +8,17 @@ interface ItemsDao {
     @Query("SELECT * FROM MARS")
     suspend fun getAllMarsPhotos(): List<MarsEntities>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addPhotoMars(mars: MarsEntities)
+    suspend fun insertMarsToRoom(mars: MarsEntities)
 
     @Query("SELECT * FROM APOD")
-    suspend fun getAllApod(): List<ApodEntities>
+    suspend fun getAllApod(): ApodEntities
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addApod(apod: ApodEntities)
+    suspend fun insertApodToRoom(apod: ApodEntities)
 
     @Query("SELECT * FROM FAV")
-    suspend fun getAllFavorites(): List<FavItems>
+    suspend fun getAllFavorites(): List<NormalizedItem>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavoritePhoto(photo: FavItems)
+    suspend fun addFavoritePhoto(photo: NormalizedItem)
     @Delete
-    suspend fun deleteFromFavorites(favItems: FavItems)
+    suspend fun deleteFromFavorites(normalizedItem: NormalizedItem)
 }

@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "APOD")
 data class ApodEntities(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val apodId: Int,
+    @ColumnInfo
+    val title: String,
     @ColumnInfo
     val date: String,
     @ColumnInfo(name = "details")
@@ -18,8 +20,6 @@ data class ApodEntities(
     val media_type: String,
     @ColumnInfo
     val service_version: String,
-    @ColumnInfo
-    val title: String,
     @ColumnInfo
     val url: String,
 )
@@ -37,7 +37,7 @@ data class MarsEntities(
 )
 
 @Entity(tableName = "FAV")
-data class FavItems(
+data class NormalizedItem(
     @PrimaryKey
     val id: String,
     @ColumnInfo

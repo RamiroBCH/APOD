@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
-import com.rama.PhylloticLink.RoomData
-import com.rama.PhylloticLink.data.DatasourceImpl
-import com.rama.PhylloticLink.data.FavItems
+import com.rama.PhylloticLink.data.NormalizedItem
 import com.rama.PhylloticLink.databinding.FragmentDetailBinding
-import com.rama.PhylloticLink.domain.RepoImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
-    private val viewModel by activityViewModels<ApodViewModel> {
-        VMFactory(RepoImpl(DatasourceImpl(RoomData.getDatabase(requireActivity().applicationContext))))
-    }
+    private val viewModel by activityViewModels<ApodViewModel>()
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -44,7 +41,7 @@ class DetailFragment : Fragment() {
         binding.btnFav.setOnClickListener {
             when (detConf) {
                 "mars" -> viewModel.saveFavorite(
-                    FavItems(
+                    NormalizedItem(
                         viewModel.photoMars.id.toString(),
                         viewModel.photoMars.earth_date,
                         viewModel.photoMars.img_src,
@@ -52,7 +49,7 @@ class DetailFragment : Fragment() {
                     )
                 )
                 "apod" -> viewModel.saveFavorite(
-                    FavItems(
+                    NormalizedItem(
                         viewModel.apod.title,
                         viewModel.apod.date,
                         viewModel.apod.hdurl,
@@ -99,7 +96,7 @@ class DetailFragment : Fragment() {
         binding.delete.visibility = View.VISIBLE
     }
 
-    private fun deleteFav(favItems: FavItems){
-        viewModel.deleteFavorite(favItems)
+    private fun deleteFav(normalizedItem: NormalizedItem){
+        viewModel.deleteFavorite(normalizedItem)
     }
 }
