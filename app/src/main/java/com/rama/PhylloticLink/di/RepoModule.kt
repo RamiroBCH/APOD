@@ -1,7 +1,5 @@
 package com.rama.PhylloticLink.di
 
-import com.rama.PhylloticLink.data.DatasourceImpl
-import com.rama.PhylloticLink.domain.Datasource
 import com.rama.PhylloticLink.domain.Repo
 import com.rama.PhylloticLink.domain.RepoImpl
 import dagger.Binds
