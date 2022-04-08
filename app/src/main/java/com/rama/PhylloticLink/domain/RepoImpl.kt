@@ -9,36 +9,36 @@ import com.rama.PhylloticLink.data.model.Photo
 import com.rama.PhylloticLink.vo.Resource
 import javax.inject.Inject
 
-class RepoImpl @Inject constructor(private val datasourceImpl: DatasourceImpl):Repo {
+class RepoImpl @Inject constructor(private val datasource: Datasource):Repo {
 
     override suspend fun getItemApod(): Resource<ItemApod> {
-        return datasourceImpl.getApod()
+        return datasource.getApod()
     }
     override suspend fun insertApodToRoom(apodEntities: ApodEntities) {
-        return datasourceImpl.insertApodToRoom(apodEntities)
+        return datasource.insertApodToRoom(apodEntities)
     }
 
     override suspend fun getApodFromRoom(): Resource<ApodEntities> {
-        return datasourceImpl.getApodFromRoom()
+        return datasource.getApodFromRoom()
     }
 
     override suspend fun getItemMarsPhotos(sol: Int): Resource<List<Photo>> {
-        return datasourceImpl.getMarsPhotoBySol(sol)
+        return datasource.getMarsPhotoBySol(sol)
     }
 
     override suspend fun insertMarsToRoom(marsEntities: MarsEntities) {
-        return datasourceImpl.insertMarsToRoom(marsEntities)
+        return datasource.insertMarsToRoom(marsEntities)
     }
 
 
 
     override suspend fun insertFavorite(photoFav: NormalizedItem) {
-        return datasourceImpl.insertFav(photoFav)
+        return datasource.insertFav(photoFav)
     }
     override suspend fun getItemsFavorite(): Resource<List<NormalizedItem>> {
-        return datasourceImpl.getItemsFav()
+        return datasource.getItemsFav()
     }
     override suspend fun deleteFromFavorites(normalizedItem: NormalizedItem) {
-        return datasourceImpl.deteleFavorite(normalizedItem)
+        return datasource.deteleFavorite(normalizedItem)
     }
 }

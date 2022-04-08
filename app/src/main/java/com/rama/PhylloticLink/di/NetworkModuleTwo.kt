@@ -2,7 +2,7 @@ package com.rama.PhylloticLink.di
 
 import androidx.core.app.AppComponentFactory
 import com.google.gson.GsonBuilder
-import com.rama.PhylloticLink.domain.MarsWebService
+import com.rama.PhylloticLink.domain.ApodWebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,14 +13,14 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object NetworkModuleTwo {
     @Singleton
     @Provides
-    fun provideMars(): MarsWebService {
+    fun provideApod(): ApodWebService {
         return Retrofit.Builder()
-            .baseUrl("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/")
+            .baseUrl("https://api.nasa.gov/planetary/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
-            .create(MarsWebService::class.java)
+            .create(ApodWebService::class.java)
     }
 }
