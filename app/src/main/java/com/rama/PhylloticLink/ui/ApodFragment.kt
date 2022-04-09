@@ -55,24 +55,11 @@ class ApodFragment : Fragment() {
                 is Resource.Success -> {
                     data = apod.data
                     binding.progressBar.visibility = View.GONE
-                    Glide.with(requireContext()).load(data.hdurl).centerInside().into(binding.apodImg)
-                    /*if(apod.data != null){viewModel.insertApodItems(
-                        ApodEntities(
-                            1,
-                            data.title,
-                            data.date,
-                            data.explanation,
-                            data.hdurl,
-                            data.media_type,
-                            data.service_version,
-                            data.hdurl
-                        )
-                    )}*/
+                    Glide.with(requireContext()).load(data.url).centerCrop().into(binding.apodImg)
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Error ${apod.exception}", Toast.LENGTH_SHORT ).show()
-                    viewModel.getApod
+                    Toast.makeText(requireContext(), "Error ${apod.exception}", Toast.LENGTH_LONG ).show()
 
                 }
             }

@@ -12,6 +12,7 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/teal_700"
         android:queryHint="1-1000"/>
 
     <RelativeLayout
