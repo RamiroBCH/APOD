@@ -56,7 +56,7 @@ class ApodFragment : Fragment() {
                     data = apod.data
                     binding.progressBar.visibility = View.GONE
                     Glide.with(requireContext()).load(data.hdurl).centerInside().into(binding.apodImg)
-                    viewModel.insertApodItems(
+                    /*if(apod.data != null){viewModel.insertApodItems(
                         ApodEntities(
                             1,
                             data.title,
@@ -67,12 +67,13 @@ class ApodFragment : Fragment() {
                             data.service_version,
                             data.hdurl
                         )
-                    )
+                    )}*/
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
-                    viewModel.getApodFromRoom()
                     Toast.makeText(requireContext(), "Error ${apod.exception}", Toast.LENGTH_SHORT ).show()
+                    viewModel.getApod
+
                 }
             }
         })

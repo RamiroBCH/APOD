@@ -6,16 +6,10 @@ import android.view.MenuItem
 import com.rama.PhylloticLink.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.customview.widget.Openable
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.rama.PhylloticLink.ui.ApodViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
