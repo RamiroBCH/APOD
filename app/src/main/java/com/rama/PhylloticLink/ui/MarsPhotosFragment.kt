@@ -12,11 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import com.rama.PhylloticLink.RoomData
-import com.rama.PhylloticLink.data.DatasourceImpl
-import com.rama.PhylloticLink.data.model.Photo
 import com.rama.PhylloticLink.databinding.FragmentMarsPhotosBinding
-import com.rama.PhylloticLink.domain.RepoImpl
+import com.rama.PhylloticLink.domain.DModels
 import com.rama.PhylloticLink.vo.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,7 +80,7 @@ class MarsPhotosFragment : Fragment(), PhotoMarsAdapter.OnPhotoClickListener {
 
     }
 
-    override fun onPhotoClick(photo: Photo) {
+    override fun onPhotoClick(photo: DModels) {
         viewModel.setPhoto(photo)
         val action = MarsPhotosFragmentDirections.actionMarsPhotosFragmentToDetailFragment()
         findNavController().navigate(action)

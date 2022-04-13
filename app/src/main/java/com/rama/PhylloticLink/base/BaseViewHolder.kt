@@ -2,8 +2,10 @@ package com.rama.PhylloticLink.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.rama.PhylloticLink.data.MarsEntities
+import com.rama.PhylloticLink.domain.DModels
 
 abstract class BaseViewHolder<T>(itemView: View): RecyclerView.ViewHolder(itemView){
 
-    abstract fun bind(item: T,position: Int)
+    abstract fun bind(item: T, position: Int)
 }

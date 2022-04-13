@@ -1,5 +1,8 @@
 package com.rama.PhylloticLink.data.model
 
+import com.rama.PhylloticLink.data.MarsEntities
+import com.rama.PhylloticLink.domain.DModels
+
 
 data class ItemApod(
     val date: String = "",
@@ -21,5 +24,17 @@ data class Photo(
     val img_src: String,
     val sol: Int
 )
+
+
+fun ItemMarsPhotos.asMarsEntities(): List<MarsEntities>{
+    return photos.map{
+        MarsEntities(
+            id = it.id,
+            earth_date = it.earth_date,
+            img_src = it.img_src,
+            sol = it.sol
+        )
+    }
+}
 
 

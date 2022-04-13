@@ -1,5 +1,6 @@
 package com.rama.PhylloticLink.domain
 
+import androidx.lifecycle.LiveData
 import com.rama.PhylloticLink.data.ApodEntities
 import com.rama.PhylloticLink.data.MarsEntities
 import com.rama.PhylloticLink.data.NormalizedItem
@@ -11,8 +12,8 @@ interface Repo {
     suspend fun getItemApod():Resource<ItemApod>
     suspend fun insertApodToRoom(apodEntities: ApodEntities)
     suspend fun getApodFromRoom():Resource<ApodEntities>
-    suspend fun getItemMarsPhotos(sol: Int):Resource<List<Photo>>
-    suspend fun insertMarsToRoom(marsEntities: MarsEntities)
+    suspend fun getItemMarsPhotos(sol: Int):Resource<List<DModels>>
+
 
 
     suspend fun insertFavorite(photoFav: NormalizedItem)

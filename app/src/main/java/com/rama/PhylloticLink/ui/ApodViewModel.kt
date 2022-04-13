@@ -5,7 +5,7 @@ import com.rama.PhylloticLink.data.ApodEntities
 import com.rama.PhylloticLink.data.MarsEntities
 import com.rama.PhylloticLink.data.NormalizedItem
 import com.rama.PhylloticLink.data.model.ItemApod
-import com.rama.PhylloticLink.data.model.Photo
+import com.rama.PhylloticLink.domain.DModels
 import com.rama.PhylloticLink.domain.Repo
 import com.rama.PhylloticLink.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +18,8 @@ class ApodViewModel @Inject constructor(private val repo: Repo) : ViewModel() {
     //Data Transfer
     lateinit var detailsConfigure: String
 
-    lateinit var photoMars: Photo
-    fun setPhoto(photo: Photo) {
+    lateinit var photoMars: DModels
+    fun setPhoto(photo: DModels) {
         detailsConfigure = "mars"
         photoMars = photo
     }
@@ -95,11 +95,7 @@ class ApodViewModel @Inject constructor(private val repo: Repo) : ViewModel() {
             emit(Resource.Failure(e))
         }
     }
-    fun insertMarsItems(marsEntities: MarsEntities){
-        viewModelScope.launch {
-            repo.insertMarsToRoom(marsEntities)
-        }
-    }
+
 }
 /*
 

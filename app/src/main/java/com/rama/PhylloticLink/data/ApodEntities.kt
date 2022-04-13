@@ -3,6 +3,7 @@ package com.rama.PhylloticLink.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.rama.PhylloticLink.domain.DModels
 
 @Entity(tableName = "APOD")
 data class ApodEntities(
@@ -48,3 +49,14 @@ data class NormalizedItem(
     val details:String
 
 )
+
+fun List<MarsEntities>.asDModel(): List<DModels>{
+    return map{
+        DModels(
+            id = it.id,
+            date = it.earth_date,
+            url = it.img_src,
+            sol = it.sol
+        )
+    }
+}

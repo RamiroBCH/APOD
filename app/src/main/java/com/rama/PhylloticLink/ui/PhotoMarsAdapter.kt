@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rama.PhylloticLink.base.BaseViewHolder
-import com.rama.PhylloticLink.data.model.Photo
 import com.rama.PhylloticLink.databinding.PhotosRowBinding
+import com.rama.PhylloticLink.domain.DModels
 
 class PhotoMarsAdapter(
     private val context: Context,
-    private val photosMars: List<Photo>,
+    private val photosMars: List<DModels>,
     private val itemClickListener:OnPhotoClickListener):
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
+
     interface OnPhotoClickListener{
-        fun onPhotoClick(photo:Photo)
+        fun onPhotoClick(photo: DModels)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -35,11 +36,11 @@ class PhotoMarsAdapter(
         return photosMars.size
     }
 
-    inner class MainViewHolder(val binding: PhotosRowBinding) : BaseViewHolder<Photo>(binding.root) {
-        override fun bind(item: Photo, position: Int) = with(binding) {
-            Glide.with(context).load(item.img_src).centerCrop().into(imgPhoto)
-            date.text = item.earth_date
-            val id = "id: " + item.id.toString()
+    inner class MainViewHolder(val binding: PhotosRowBinding) : BaseViewHolder<DModels>(binding.root) {
+        override fun bind(item: DModels, position: Int) = with(binding) {
+            Glide.with(context).load(item.url).centerCrop().into(imgPhoto)
+            date.text = item.date
+            val id = item.id.toString()
             idPhoto.text = id
             itemView.setOnClickListener{ itemClickListener.onPhotoClick(item)}
         }

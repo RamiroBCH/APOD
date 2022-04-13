@@ -1,5 +1,6 @@
 package com.rama.PhylloticLink.domain
 
+import androidx.lifecycle.LiveData
 import com.rama.PhylloticLink.data.ApodEntities
 import com.rama.PhylloticLink.data.DatasourceImpl
 import com.rama.PhylloticLink.data.MarsEntities
@@ -22,13 +23,10 @@ class RepoImpl @Inject constructor(private val datasource: Datasource):Repo {
         return datasource.getApodFromRoom()
     }
 
-    override suspend fun getItemMarsPhotos(sol: Int): Resource<List<Photo>> {
+    override suspend fun getItemMarsPhotos(sol: Int): Resource<List<DModels>> {
         return datasource.getMarsPhotoBySol(sol)
     }
 
-    override suspend fun insertMarsToRoom(marsEntities: MarsEntities) {
-        return datasource.insertMarsToRoom(marsEntities)
-    }
 
 
 

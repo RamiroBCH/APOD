@@ -43,8 +43,8 @@ class DetailFragment : Fragment() {
                 "mars" -> viewModel.saveFavorite(
                     NormalizedItem(
                         viewModel.photoMars.id.toString(),
-                        viewModel.photoMars.earth_date,
-                        viewModel.photoMars.img_src,
+                        viewModel.photoMars.date,
+                        viewModel.photoMars.url,
                         viewModel.photoMars.sol.toString()
                     )
                 )
@@ -58,7 +58,7 @@ class DetailFragment : Fragment() {
                 )
             }
 
-            Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Guardado en Favoritos", Toast.LENGTH_LONG).show()
         }
         binding.delete.setOnClickListener {
             when(detConf){
@@ -78,9 +78,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun setDetailsMars() {
-        Glide.with(requireContext()).load(viewModel.photoMars.img_src).into(binding.imgDetail)
+        Glide.with(requireContext()).load(viewModel.photoMars.url).into(binding.imgDetail)
         binding.txtTitulo.text = viewModel.photoMars.id.toString()
-        binding.txtDate.text = viewModel.photoMars.earth_date
+        binding.txtDate.text = viewModel.photoMars.date
         binding.txtDetail.text = viewModel.photoMars.sol.toString()
         binding.btnFav.visibility = View.VISIBLE
         binding.delete.visibility = View.GONE

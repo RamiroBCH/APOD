@@ -1,8 +1,11 @@
 package com.rama.PhylloticLink.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.rama.PhylloticLink.data.model.ItemApod
-import com.rama.PhylloticLink.data.model.Photo
+import com.rama.PhylloticLink.data.model.asMarsEntities
 import com.rama.PhylloticLink.domain.ApodWebService
+import com.rama.PhylloticLink.domain.DModels
 import com.rama.PhylloticLink.domain.Datasource
 import com.rama.PhylloticLink.domain.MarsWebService
 import com.rama.PhylloticLink.vo.Resource
@@ -18,8 +21,11 @@ class DatasourceImpl @Inject constructor(
     override suspend fun getApod():Resource<ItemApod>{
         return Resource.Success(apod.getApod(api_key = marskey))
     }
-    override suspend fun getMarsPhotoBySol(sol: Int):Resource<List<Photo>>{
-        return Resource.Success(mars.getMarsPhotos(sol,api_key = marskey).photos)
+    override suspend fun getMarsPhotoBySol(sol: Int): Resource<List<DModels>> {
+        val marsList = mars.getMarsPhotos(sol,api_key = marskey).asMarsEntities()
+        itemsDao.insertMarsToRoom(marsList)
+        val dModels: List<DModels> = itemsDao.getAllMarsPhotos(sol).asDModel()
+        return Resource.Success(dModels)
     }
     //Metodos que usan Room
     override suspend fun insertFav(photoFav: NormalizedItem){
@@ -35,9 +41,7 @@ class DatasourceImpl @Inject constructor(
     override suspend fun insertApodToRoom(apodEntities: ApodEntities) {
         itemsDao.insertApodToRoom(apodEntities)
     }
-    override suspend fun insertMarsToRoom(marsEntities: MarsEntities) {
-        itemsDao.insertMarsToRoom(marsEntities)
-    }
+
     //Metodos que usan Room para obtener datos
     override suspend fun getApodFromRoom(): Resource<ApodEntities>{
         return Resource.Success(itemsDao.getAllApod())
